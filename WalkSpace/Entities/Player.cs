@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using SpaceWalk.Entities.Enums;
+using WalkSpace.Entities.Enums;
 
-namespace SpaceWalk.Entities
+namespace WalkSpace.Entities
 {
     class Player : Character
     {

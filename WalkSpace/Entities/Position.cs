@@ -1,4 +1,4 @@
-﻿namespace SpaceWalk.Entities
+﻿namespace WalkSpace.Entities
 {
     public class Position
     {

@@ -1,7 +1,7 @@
-﻿using SpaceWalk.Entities.Enums;
+﻿using WalkSpace.Entities.Enums;
 using System;
 
-namespace SpaceWalk.Entities
+namespace WalkSpace.Entities
 {
 
     static class Screen

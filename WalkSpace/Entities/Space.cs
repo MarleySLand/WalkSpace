@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using SpaceWalk;
+using WalkSpace;
 
-namespace SpaceWalk.Entities
+namespace WalkSpace.Entities
 {
 
     class Space
@@ -61,6 +61,33 @@ namespace SpaceWalk.Entities
             else
             {
                 return false;
+            }
+        }
+
+        public void CannotMovetTest(Position pos, Player plw)
+        {
+            if (pos.Rows > 9 || pos.Rows < 0 || pos.Columns > 19 || pos.Columns < 0) 
+            {
+                if (pos.Rows > 9)
+                {
+                    plw.Pos.ChangePos(pos.Rows - 1, pos.Columns);
+                }
+                else if (pos.Rows < 0)
+                {
+                    plw.Pos.ChangePos(pos.Rows + 1, pos.Columns);
+                }
+                else if (pos.Columns > 19)
+                {
+                    plw.Pos.ChangePos(pos.Rows, pos.Columns - 1);
+                }
+                else
+                {
+                    plw.Pos.ChangePos(pos.Rows, pos.Columns + 1);
+                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                throw new MoveException("[!] Can't go this way!");
+                Console.ResetColor();
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using SpaceWalk.Entities.Enums;
-namespace SpaceWalk.Entities
+using WalkSpace.Entities.Enums;
+namespace WalkSpace.Entities
 {
 
     class Gaming
@@ -16,7 +16,7 @@ namespace SpaceWalk.Entities
         }
         public void PlaceCharacters()
         {
-            SpaceGame.PlaceCh(new Player(3, new Position(2, 1)), new Position(2, 1));
+            SpaceGame.PlaceCh(new Player(3, new Position(8, 2)), new Position(8, 2));
         }
         public Player TakePlayer()
         {
@@ -42,30 +42,34 @@ namespace SpaceWalk.Entities
             Player p = TakePlayer();
             if (move == 'W')
             {
-                Position posO = p.Pos;
+                Position posO = new Position(p.Pos.Rows, p.Pos.Columns);
                 p.Pos.ChangePos(p.Pos.Rows - 1, p.Pos.Columns);
                 Position posD = p.Pos;
+                SpaceGame.CannotMovetTest(posD, p);
                 MoveCh(posO, posD);
             }
             else if (move == 'D')
             {
-                Position posO = p.Pos;
+                Position posO = new Position(p.Pos.Rows, p.Pos.Columns);
                 p.Pos.ChangePos(p.Pos.Rows, p.Pos.Columns + 1);
                 Position posD = p.Pos;
+                SpaceGame.CannotMovetTest(posD, p);
                 MoveCh(posO, posD);
             }
             else if (move == 'S')
             {
-                Position posO = p.Pos;
+                Position posO = new Position(p.Pos.Rows, p.Pos.Columns);
                 p.Pos.ChangePos(p.Pos.Rows + 1, p.Pos.Columns);
                 Position posD = p.Pos;
+                SpaceGame.CannotMovetTest(posD, p);
                 MoveCh(posO, posD);
             }
             else
             {
-                Position posO = p.Pos;
+                Position posO = new Position(p.Pos.Rows, p.Pos.Columns);
                 p.Pos.ChangePos(p.Pos.Rows, p.Pos.Columns - 1);
                 Position posD = p.Pos;
+                SpaceGame.CannotMovetTest(posD, p);
                 MoveCh(posO, posD);
             }
         }

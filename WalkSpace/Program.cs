@@ -1,7 +1,7 @@
 ﻿using System;
-using SpaceWalk.Entities;
+using WalkSpace.Entities;
 
-namespace SpaceWalk
+namespace WalkSpace
 {
     class Program
     {
@@ -11,21 +11,30 @@ namespace SpaceWalk
             Gaming game = new Gaming(false, space);
             game.PlaceCharacters();
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(" Your mission: Get the treasure and hide (or kill them) from the guards!");
-            Console.WriteLine();
+           
 
-            while (game.Finished == false)
-            {
-                Screen.PrintSpace(game.SpaceGame);
-                Console.WriteLine();
+                while (game.Finished == false)
+                {
+                        Console.Clear();
+                    try
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(" Your mission: Get the treasure and hide (or kill them) from the guards!");
+                        Console.WriteLine();
+                        Screen.PrintSpace(game.SpaceGame);
+                        Console.WriteLine();
 
-                Console.WriteLine("Instructions: W = go up, D = go right, S = go down, A = go left");
-                Console.Write("> ");
-                char move = char.Parse(Console.ReadLine());
-                game.MoveDirection(move);
-                Console.Clear();
-            }
+                        Console.WriteLine("Instructions: W = go up, D = go right, S = go down, A = go left");
+                        Console.Write("> ");
+                        char move = char.Parse(Console.ReadLine());
+                        game.MoveDirection(move);
+                    }
+                    catch (MoveException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+                }
 
         }
     }

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace SpaceWalk.Entities.Enums
+namespace WalkSpace.Entities.Enums
 {
 
     public enum Colors
