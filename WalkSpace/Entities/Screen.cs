@@ -36,11 +36,28 @@ namespace WalkSpace.Entities
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.Write(space.FindCh(row, column) + " ");
                     Console.ResetColor();
-                }
-                else
+                } else if(space.FindCh(row, column).Color == Colors.Red)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(space.FindCh(row, column) + " ");
+                    Console.ResetColor();
+                } else
                 {
                     Console.Write(space.FindCh(row, column) + " ");
                 }
+            }
+        }
+
+        public static void EnemiesDown(Gaming game)
+        {
+            Console.WriteLine("Guards down: " + game.SpaceGame.TakePlayer().CatchedChs);
+            if (game.CatchedG == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[!] You killed a guard!");
+                game.CatchedG = false;
+                Console.ResetColor();
             }
         }
     }

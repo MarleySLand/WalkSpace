@@ -19,11 +19,13 @@ namespace WalkSpace
                     try
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(" Your mission: Get the treasure and hide (or kill them) from the guards!");
+                        Console.WriteLine(" Your mission: Get the treasure and avoid (or kill) the guards!");
                         Console.WriteLine();
                         Screen.PrintSpace(game.SpaceGame);
                         Console.WriteLine();
 
+                        Screen.EnemiesDown(game);
+                        Console.WriteLine();
                         Console.WriteLine("Instructions: W = go up, D = go right, S = go down, A = go left");
                         Console.Write("> ");
                         char move = char.Parse(Console.ReadLine());
@@ -32,6 +34,16 @@ namespace WalkSpace
                     catch (MoveException e)
                     {
                         Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Unexpected error: " + e.Message);
                         Console.ReadLine();
                     }
                 }

@@ -9,6 +9,7 @@ namespace WalkSpace.Entities
     {
         public bool Finished { get; set; }
         public Space SpaceGame { get; set; }
+        public bool CatchedG { get; set; }
         public Gaming(bool finished, Space spacegame)
         {
             Finished = false;
@@ -16,30 +17,15 @@ namespace WalkSpace.Entities
         }
         public void PlaceCharacters()
         {
-            SpaceGame.PlaceCh(new Player(3, new Position(8, 2)), new Position(8, 2));
-        }
-        public Player TakePlayer()
-        {
-            for (int i = 0; i < SpaceGame.Rows; i++)
-            {
-                for (int j = 0; j < SpaceGame.Columns; j++)
-                {
-                    if (SpaceGame.ExistCh(i, j) == true)
-                    {
-                        if (SpaceGame.FindCh(i, j).Color == Colors.Green)
-                        {
-                            Player p = SpaceGame.FindCh(i, j) as Player;
-                            return p;
-                        }
-                    }
-                }
-            }
-            return new Player(3, new Position(2, 1));
+            SpaceGame.PlaceCh(new Player(3, new Position(2, 1)), new Position(2, 1));
+            SpaceGame.PlaceCh(new Guard(3, new Position(2, 14)), new Position(2, 14));
+            SpaceGame.PlaceCh(new Guard(3, new Position(6, 14)), new Position(6, 14));
+            SpaceGame.PlaceCh(new Guard(3, new Position(7, 17)), new Position(7, 17));
         }
 
         public void MoveDirection(char move)
         {
-            Player p = TakePlayer();
+            Player p = SpaceGame.TakePlayer();
             if (move == 'W')
             {
                 Position posO = new Position(p.Pos.Rows, p.Pos.Columns);
@@ -64,13 +50,20 @@ namespace WalkSpace.Entities
                 SpaceGame.CannotMovetTest(posD, p);
                 MoveCh(posO, posD);
             }
-            else
+            else if (move == 'A')
             {
                 Position posO = new Position(p.Pos.Rows, p.Pos.Columns);
                 p.Pos.ChangePos(p.Pos.Rows, p.Pos.Columns - 1);
                 Position posD = p.Pos;
                 SpaceGame.CannotMovetTest(posD, p);
                 MoveCh(posO, posD);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                throw new FormatException("[!] The movement you typed is invalid! Valid moves: W/D/S/A");
+                Console.ResetColor();
             }
         }
 
@@ -80,7 +73,9 @@ namespace WalkSpace.Entities
             SpaceGame.RemoveCh(origin);
             if (SpaceGame.ExistCh(destiny) == true)
             {
-                SpaceGame.CatchedChs.Add(SpaceGame.FindCh(destiny));
+                SpaceGame.RemoveCh(destiny);
+                aux.CatchedChs++;
+                CatchedG = true;
             }
             SpaceGame.PlaceCh(aux, destiny);
         }

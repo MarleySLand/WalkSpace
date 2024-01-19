@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using WalkSpace;
+using WalkSpace.Entities.Enums;
 
 namespace WalkSpace.Entities
 {
@@ -11,7 +11,6 @@ namespace WalkSpace.Entities
         public int Rows { get; set; }
         public int Columns { get; set; }
         public Character[,] SpaceW { get; set; }
-        public List<Character> CatchedChs { get; set; }
 
         public Space(int rows, int columns)
         {
@@ -62,6 +61,25 @@ namespace WalkSpace.Entities
             {
                 return false;
             }
+        }
+
+        public Player TakePlayer()
+        {
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    if (ExistCh(i, j) == true)
+                    {
+                        if (FindCh(i, j).Color == Colors.Green)
+                        {
+                            Player p = FindCh(i, j) as Player;
+                            return p;
+                        }
+                    }
+                }
+            }
+            return new Player(3, new Position(2, 1));
         }
 
         public void CannotMovetTest(Position pos, Player plw)

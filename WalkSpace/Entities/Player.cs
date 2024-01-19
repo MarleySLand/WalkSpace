@@ -7,6 +7,7 @@ namespace WalkSpace.Entities
 {
     class Player : Character
     {
+        public int CatchedChs { get; set; }
         public Player(int movements, Position pos) : base(movements, pos)
         {
             Color = Colors.Green;
