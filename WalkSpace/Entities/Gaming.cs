@@ -8,6 +8,7 @@ namespace WalkSpace.Entities
     class Gaming
     {
         public bool Finished { get; set; }
+        public char End { get; set; }
         public Space SpaceGame { get; set; }
         public bool CatchedG { get; set; }
         public Gaming(bool finished, Space spacegame)
@@ -17,10 +18,10 @@ namespace WalkSpace.Entities
         }
         public void PlaceCharacters()
         {
-            SpaceGame.PlaceCh(new Player(3, new Position(2, 1)), new Position(2, 1));
-            SpaceGame.PlaceCh(new Guard(3, new Position(2, 14)), new Position(2, 14));
-            SpaceGame.PlaceCh(new Guard(3, new Position(6, 14)), new Position(6, 14));
-            SpaceGame.PlaceCh(new Guard(3, new Position(7, 17)), new Position(7, 17));
+            SpaceGame.PlaceCh(new Player(3, new Position(2, 1), SpaceGame), new Position(2,1));
+            SpaceGame.PlaceCh(new Guard(3, new Position(2, 14), SpaceGame), new Position(2, 14));
+            SpaceGame.PlaceCh(new Guard(3, new Position(6, 14), SpaceGame), new Position(6, 14));
+            SpaceGame.PlaceCh(new Guard(3, new Position(7, 17), SpaceGame), new Position(7, 17));
         }
 
         public void MoveDirection(char move)
@@ -76,9 +77,22 @@ namespace WalkSpace.Entities
                 SpaceGame.RemoveCh(destiny);
                 aux.CatchedChs++;
                 CatchedG = true;
-            }
+            } 
             SpaceGame.PlaceCh(aux, destiny);
         }
+
+        public char Game()
+        {
+            Player plw = SpaceGame.TakePlayer();
+
+            if (SpaceGame.IsGuardVision(plw.Pos.Rows, plw.Pos.Columns)[plw.Pos.Rows, plw.Pos.Columns])
+            {
+                Finished = true;
+                End = 'L';
+            }
+            return End;
+        }
+        
     }
 
 }

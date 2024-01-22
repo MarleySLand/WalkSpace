@@ -23,13 +23,22 @@ namespace WalkSpace
                         Console.WriteLine();
                         Screen.PrintSpace(game.SpaceGame);
                         Console.WriteLine();
-
+                         
                         Screen.EnemiesDown(game);
                         Console.WriteLine();
                         Console.WriteLine("Instructions: W = go up, D = go right, S = go down, A = go left");
                         Console.Write("> ");
                         char move = char.Parse(Console.ReadLine());
                         game.MoveDirection(move);
+                        
+                        char end = game.Game();
+                        if (game.Finished)
+                        {
+                           Console.Clear();
+                           Console.WriteLine();
+                           Screen.PrintSpace(game.SpaceGame);
+                           Screen.FinalMessage(end);
+                        }
                     }
                     catch (MoveException e)
                     {

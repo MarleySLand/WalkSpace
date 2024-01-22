@@ -22,12 +22,23 @@ namespace WalkSpace.Entities
 
         public static void PrintEntity(Space space, int row, int column)
         {
-            if (space.FindCh(row, column) == null)
-            {
-                Console.BackgroundColor = ConsoleColor.Blue;
-                Console.Write("  ");
-                Console.ResetColor();
-            }
+            if (space.ExistCh(row, column) == false)
+              {
+                
+                if (space.IsGuardVision(row, column)[row, column])
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.Write("  ");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.Write("  ");
+                    Console.ResetColor();
+                }
+
+              }
             else
             {
                 if (space.FindCh(row, column).Color == Colors.Green)
@@ -36,7 +47,7 @@ namespace WalkSpace.Entities
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.Write(space.FindCh(row, column) + " ");
                     Console.ResetColor();
-                } else if(space.FindCh(row, column).Color == Colors.Red)
+                } else if (space.FindCh(row, column).Color == Colors.Red)
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -60,6 +71,24 @@ namespace WalkSpace.Entities
                 Console.ResetColor();
             }
         }
+
+        public static void FinalMessage(char end)
+        {
+            if (end == 'L')
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine();
+                Console.WriteLine(" > You've got catched! D: It all ends here.");
+                Console.ResetColor();
+            } else if (end == 'W')
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine();
+                Console.WriteLine(" > You've got the treasure! Good job :')");
+                Console.ResetColor();
+            }
+        }
+
     }
 
 }

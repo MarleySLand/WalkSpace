@@ -11,11 +11,13 @@ namespace WalkSpace.Entities
         public int Movements { get; set; }
         public Position Pos { get; set; }
         public Colors Color { get; set; }
+        public Space SpaceC { get; set; }
 
-        public Character(int movements, Position pos)
+        public Character(int movements, Position pos, Space space)
         {
             Movements = movements;
             Pos = new Position(pos.Rows, pos.Columns);
+            SpaceC = new Space(space.Rows, space.Columns);
         }
 
         public Character(int movements, Position pos, Colors color)
@@ -23,6 +25,12 @@ namespace WalkSpace.Entities
             Movements = movements;
             Pos = new Position(pos.Rows, pos.Columns);
             Color = color;
+        }
+
+        public Character(int movements, Position pos)
+        {
+            Movements = movements;
+            Pos = new Position(pos.Rows, pos.Columns);
         }
 
         public override string ToString()
